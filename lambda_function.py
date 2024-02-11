@@ -19,7 +19,7 @@ def lambda_handler(event, context):
     if event_path == '/health':
         return {
             'statusCode': 200,
-            'body': json.dumps('Hello from github attempt 3! Palm Personal Finance API is Healthy!')
+            'body': json.dumps('Hello from github attempt 4! Palm Personal Finance API is Healthy!')
         }
      
     elif event_path.startswith('/expenses'):
