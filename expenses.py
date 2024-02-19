@@ -20,11 +20,11 @@ def put_expenses(client, event):
             'statusCode': res['ResponseMetadata']['HTTPStatusCode'],
             'body': json.dumps(res)
         }
-        else:
-            return {
-                'statusCode': 400,
-                'body': json.dumps('amount, id, and name are all required fields')
-            }
+    else:
+        return {
+            'statusCode': 400,
+            'body': json.dumps('amount, id, and name are all required fields')
+        }
 
 def delete_expenses(client):
     return {
