@@ -17,7 +17,7 @@ db_client = client.initiate_client()
 router = Router()
 
 @router.get("/health")
-def get_health()
+def get_health():
     return health.get_health()
 
 app.include_router(router)
