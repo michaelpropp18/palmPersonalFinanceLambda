@@ -1,5 +1,6 @@
+from aws_lambda_powertools.event_handler import APIGatewayRestResolver
+from aws_lambda_powertools.event_handler.api_gateway import Router
 import json
-import boto3
 
 import client
 import health
@@ -11,9 +12,20 @@ METHOD_NOT_ALLOWED_RESPONSE = {
     'body': json.dumps('Method not allowed')
 }
 
-client = client.initiate_client()
+app = APIGatewayRestResolver()
+db_client = client.initiate_client()
+router = Router()
+
+@router.get("/health")
+def get_health:
+    return health.get_health()
+
+app.include_router(router)
 
 def lambda_handler(event, context):
+    return app.resolve(event, context)
+
+'''
     print('Received event: ', event)
     print('Received context: ', context)
     
@@ -24,17 +36,18 @@ def lambda_handler(event, context):
         return health.get_health()
     elif event_path.startswith('/expenses'):
         if event_http_method == 'GET':
-            return expenses.get_expenses(client)
+            return expenses.get_expenses(db_client)
         elif event_http_method == 'PUT':
-            return exepnses.put_expenses(client, event)
+            return exepnses.put_expenses(db_client, event)
         elif event_http_method == 'DELETE':
-            return expenses.delete_expenses(client)
+            return expenses.delete_expenses(db_client)
         else:
             return METHOD_NOT_ALLOWED_RESPONSE
     elif event_path.startswith('/incomes'):
         if event_http_method == 'GET':
-            return incomes.get_incomes(client)
+            return incomes.get_incomes(db_client)
         else:
             return METHOD_NOT_ALLOWED_RESPONSE
     else:  
         return METHOD_NOT_ALLOWED_RESPONSE
+'''
