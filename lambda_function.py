@@ -1,8 +1,10 @@
 import json
 import boto3
 
-import health
 import client
+import health
+import expenses
+import incomes
 
 METHOD_NOT_ALLOWED_RESPONSE = {
     'statusCode': 405,
@@ -22,45 +24,16 @@ def lambda_handler(event, context):
         return health.get_health()
     elif event_path.startswith('/expenses'):
         if event_http_method == 'GET':
-            res = client.scan(TableName="Expenses")["Items"]
-            return {
-                'statusCode': 200,
-                'body': json.dumps(res)
-            }
-        elif event_http_method == ('PUT'):
-            body = json.loads(event['body'])
-            print(body)
-            print(type(body))
-            if (body and 'amount' in body and 'id' in body and 'name' in body):
-                res = client.put_item(
-                    TableName="Expenses",
-                    Item=body
-                )
-                return {
-                    'statusCode': res['ResponseMetadata']['HTTPStatusCode'],
-                    'body': json.dumps(res)
-                }
-            else:
-                return {
-                    'statusCode': 400,
-                    'body': json.dumps('amount, id, and name are all required fields')
-                }
+            return expenses.get_expenses(client)
+        elif event_http_method == 'PUT':
+            return exepnses.put_expenses(client, event)
         elif event_http_method == 'DELETE':
-            return {
-                'statusCode': 200,
-                'body': json.dumps('FIXME')
-            }
-            
+            return expenses.delete_expenses(client)
         else:
             return METHOD_NOT_ALLOWED_RESPONSE
-    
     elif event_path.startswith('/incomes'):
         if event_http_method == 'GET':
-            res = client.scan(TableName="Incomes")["Items"]
-            return {
-                'statusCode': 200,
-                'body': json.dumps(res)
-            }
+            return incomes.get_incomes(client)
         else:
             return METHOD_NOT_ALLOWED_RESPONSE
     else:  
