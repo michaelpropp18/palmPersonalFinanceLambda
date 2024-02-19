@@ -1,6 +1,8 @@
 import json
 import boto3
 
+import health
+
 METHOD_NOT_ALLOWED_RESPONSE = {
     'statusCode': 405,
     'body': json.dumps('Method not allowed')
@@ -17,10 +19,7 @@ def lambda_handler(event, context):
     event_http_method = event['httpMethod']
     
     if event_path == '/health':
-        return {
-            'statusCode': 200,
-            'body': json.dumps('Hello from github attempt 5! Palm Personal Finance API is Healthy!')
-        }
+        return health.get_health()
      
     elif event_path.startswith('/expenses'):
         if event_http_method == 'GET':
