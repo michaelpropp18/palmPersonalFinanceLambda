@@ -2,25 +2,24 @@ import json
 import boto3
 
 import health
+import client
 
 METHOD_NOT_ALLOWED_RESPONSE = {
     'statusCode': 405,
     'body': json.dumps('Method not allowed')
 }
 
+client = client.initiate_client()
+
 def lambda_handler(event, context):
-    # TODO implement
     print('Received event: ', event)
     print('Received context: ', context)
-    client = boto3.client('dynamodb')
-    print('boto3 dynamodb client started')
     
     event_path = event['path']
     event_http_method = event['httpMethod']
     
     if event_path == '/health':
         return health.get_health()
-     
     elif event_path.startswith('/expenses'):
         if event_http_method == 'GET':
             res = client.scan(TableName="Expenses")["Items"]
