@@ -26,7 +26,7 @@ def get_expenses():
 
 @router.put("/expenses")
 def put_expenses():
-    return exepnses.put_expenses(db_client, router.current_event)
+    return expenses.put_expenses(db_client, router.current_event)
 
 @router.delete("/expenses")
 def delete_expenses():
