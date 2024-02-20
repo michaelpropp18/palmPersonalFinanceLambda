@@ -1,5 +1,3 @@
-import split_route_append_context_module
-
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver
 from aws_lambda_powertools.event_handler.api_gateway import Router
 import json
