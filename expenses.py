@@ -8,7 +8,7 @@ db_client = client.initiate_client()
 
 @router.get("/expenses")
 def get_expenses():
-    res = client.scan(TableName="Expenses")["Items"]
+    res = db_client.scan(TableName="Expenses")["Items"]
     return {
         'statusCode': 200,
         'body': json.dumps(res)
