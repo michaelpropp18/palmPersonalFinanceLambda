@@ -2,17 +2,16 @@ from aws_lambda_powertools.event_handler import APIGatewayRestResolver
 from aws_lambda_powertools.event_handler.api_gateway import Router
 from aws_lambda_powertools.utilities.typing import LambdaContext
 
-import json
+from health import router as health_router
+from expenses import router as expenses_router
+from incomes import router as incomes_router
 
-import health
-import expenses
-import incomes
 
 app = APIGatewayRestResolver()
 
-app.include_router(health.router)
-app.include_router(expenses.router)
-app.include_router(incomes.router)
+app.include_router(health_router)
+app.include_router(expenses_router)
+app.include_router(incomes_router)
 
 def lambda_handler(event: dict, context: LambdaContext):
     print('Received event: ', event)
