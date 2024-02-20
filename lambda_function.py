@@ -33,7 +33,7 @@ def get_incomes():
 
 app.include_router(router)
 
-def lambda_handler(event: dict, context: LambdaContext):
+def lambda_handler(event: dict, context):
     print('Received event: ', event)
     print('Received context: ', context)
     return app.resolve(event, context)
