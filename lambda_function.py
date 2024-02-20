@@ -13,10 +13,6 @@ app = APIGatewayRestResolver()
 db_client = client.initiate_client()
 router = Router()
 
-@router.get("/health")
-def get_health():
-    return health.get_health()
-
 @router.get("/expenses")
 def get_expenses():
     return expenses.get_expenses(db_client)
@@ -34,6 +30,7 @@ def get_incomes():
     return incomes.get_incomes(db_client)
 
 app.include_router(router)
+app.include_router(health.router)
 
 def lambda_handler(event: dict, context: LambdaContext):
     print('Received event: ', event)
