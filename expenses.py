@@ -22,21 +22,11 @@ def get_expenses() -> List[Expense]:
 
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
-    '''
     database.put_expense(expense)
     return {
         'statusCode': 200,
         'body': 'yay'
     }
-    '''
-    print(expense.dict(by_alias=True))
-    print()
-    res = db_client.put_item(
-        TableName="Expenses",
-        Item=expense.dict(by_alias=True)
-    )
-    print(res)
-    return expense
 
 @router.delete("/expenses")
 def delete_expenses():
