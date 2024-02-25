@@ -4,6 +4,7 @@ from boto3.dynamodb.conditions import Key
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 
 from typing import List
+from decimal import Decimal
 
 from models.expense import Expense
 
