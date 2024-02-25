@@ -1,6 +1,6 @@
 import json
 from aws_lambda_powertools.event_handler.api_gateway import Router
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from uuid import uuid4
 
 import client
