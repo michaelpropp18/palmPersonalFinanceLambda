@@ -25,7 +25,7 @@ def put_expense(expense: Expense) -> Expense:
     database.put_expense(expense)
     return {
         'statusCode': 200,
-        'body': 'yay'
+        'body': expense
     }
 
 @router.delete("/expenses")

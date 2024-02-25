@@ -38,4 +38,5 @@ def put_expense(expense: Expense):
     p2 = custom_serializer(expense_dict)
     print(p2)
     res = table.put_item(Item=p2)
+    print(res)
     return res
