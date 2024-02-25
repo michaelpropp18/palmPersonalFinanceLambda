@@ -1,6 +1,8 @@
 import boto3
 from boto3.dynamodb.conditions import Key
 
+import models.expense
+
 dynamodb = boto3.resource('dynamodb', region_name="us-east-1")
 
 EXPENSES_TABLE_NAME = "Expenses"

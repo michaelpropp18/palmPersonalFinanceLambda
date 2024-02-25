@@ -11,14 +11,10 @@ import database
 import boto3
 from boto3.dynamodb.conditions import Key
 
+import models.expense
+
 router = Router()
 db_client = client.initiate_client()
-
-class Expense(BaseModel): 
-    amount: float 
-    id_: int = Field(alias="id", default_factory=lambda: uuid4().int) 
-    name: str
-    datetime_: datetime = Field(alias="datetime", default_factory=lambda: datetime.now(timezone.utc))
 
 @router.get("/expenses")
 def get_expenses() -> List[Expense]:
