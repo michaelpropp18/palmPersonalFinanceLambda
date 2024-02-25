@@ -12,7 +12,7 @@ db_client = client.initiate_client()
 
 class Expense(BaseModel): 
     amount: float
-    id_: int = Field(alias="id", default=(default=uuid4().int)
+    id_: int = Field(alias="id", default=uuid4().int)
     name: str
     datetime_: datetime = Field(alies="datetime", default=datetime.now(timezone.utc))
 
