@@ -35,6 +35,7 @@ def get_expenses():
         'statusCode': 200,
         'body': json.dumps(res)
     }
+    '''
 
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
