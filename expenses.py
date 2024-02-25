@@ -27,7 +27,7 @@ def get_expenses():
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
     print(expense.dict(by_alias=True))
-    return expense.json()
+    return expense
     '''
     if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
         res = db_client.put_item(
