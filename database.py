@@ -15,5 +15,5 @@ def get_expenses() -> List[Expense]:
 
 def put_expense(expense: Expense):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
-    res = table.put_item(item=expense.dict(by_alias=True))
+    res = table.put_item(Item=expense.dict(by_alias=True))
     return res
