@@ -1,6 +1,7 @@
 import json
 from aws_lambda_powertools.event_handler.api_gateway import Router
 from pydantic import BaseModel, Field
+from datetime import datetime, timezone
 from uuid import uuid4
 from typing import Optional
 
@@ -11,9 +12,9 @@ db_client = client.initiate_client()
 
 class Expense(BaseModel): 
     amount: float
-    id_: int = Field(default=uuid4().int)
-    title: str
-    completed: bool
+    id_: int = Field(alias="id", default=(default=uuid4().int)
+    name: str
+    datetime_: datetime = Field(alies="datetime", default=datetime.now(timezone.utc))
 
 @router.get("/expenses")
 def get_expenses():
@@ -23,11 +24,12 @@ def get_expenses():
         'body': json.dumps(res)
     }
 
-@router.put("/expenses")
-def put_expense():
+@router.post("/expenses")
+def put_expense(expense: Expense) -> int:
     expense_data: dict = router.current_event.body  # deserialize json str to dict
     #body = json.loads(router.current_event['body'])
     print(expense_data)
+    print(expense.dict(by_alias=True))
     if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
         res = db_client.put_item(
             TableName="Expenses",
