@@ -27,6 +27,11 @@ def put_expense(expense: Expense) -> Expense:
     if res['ResponseMetadata']['HTTPStatusCode'] == 200:
         return expense
 
+def delete_expense(expense_id: str) -> Expense:
+    table = dynamodb.Table(EXPENSES_TABLE_NAME)
+    res = table.delete_item(Key=expense_id, ReturnValues="ALL_OLD")
+    print(res)
+
 # remove values that DynamoDB doesn't like
 def _prepare_dynamodb_dict(d):
     for k,v in d.items():

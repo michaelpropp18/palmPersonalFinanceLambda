@@ -17,8 +17,5 @@ def put_expense(expense: Expense) -> Expense:
     return database.put_expense(expense)
 
 @router.delete("/expenses")
-def delete_expenses():
-    return {
-        'statusCode': 200,
-        'body': json.dumps('FIXME')
-    }
+def delete_expenses(expense_id: str):
+    delete_expense.delete_expense(expense_id)
