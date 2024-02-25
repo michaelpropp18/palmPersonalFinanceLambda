@@ -25,7 +25,7 @@ def get_expenses():
     }
 
 @router.post("/expenses")
-def put_expense(expense: Expense) -> str:
+def put_expense(expense: Expense) -> Expense:
     expense_data: dict = router.current_event.body  # deserialize json str to dict
     #body = json.loads(router.current_event['body'])
     print(expense_data)
