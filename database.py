@@ -2,7 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from typing import List
 
-from models.expense import Expense
+from models.expense import Expense, ExpenseDynamoDb
 
 dynamodb = boto3.resource('dynamodb', region_name="us-east-1")
 
@@ -14,7 +14,7 @@ def get_expenses() -> List[Expense]:
     return res['Items']
 
 
-def put_expense(expense: Expense):
+def put_expense(expense: ExpenseDynamoDb):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     expense_dict = expense.dict(by_alias=True)
     print(expense_dict)
