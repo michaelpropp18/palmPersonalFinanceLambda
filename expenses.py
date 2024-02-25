@@ -25,8 +25,8 @@ def get_expenses():
     table = dynamodb.Table("Expenses")
     res = table.scan()
     print(res)
-    print(res['items'])
-    item = res['items'][0]
+    print(res['Items'])
+    item = res['Items'][0]
     print(item)
     return {
         'statusCode': 200,
