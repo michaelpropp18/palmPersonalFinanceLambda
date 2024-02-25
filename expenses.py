@@ -2,9 +2,10 @@ import json
 from aws_lambda_powertools.event_handler.api_gateway import Router
 from typing import List
 
-import database
-
 from models.expense import *
+
+
+router = Router()
 
 @router.get("/expenses")
 def get_expenses() -> List[Expense]:
