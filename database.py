@@ -2,7 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from typing import List
 
-from models.expense import *
+import models.expense
 
 dynamodb = boto3.resource('dynamodb', region_name="us-east-1")
 
