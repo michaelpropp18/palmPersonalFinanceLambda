@@ -19,11 +19,11 @@ def get_expenses() -> List[Expense]:
     res = table.scan()
     return res['Items']
 
-def put_expense(expense: Expense):
+def put_expense(expense: Expense) -> int:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     expense_dict = expense.dict(by_alias=True)
-    res = table.put_item(Item=_prepare_dynamodb_dict(expense_dict))
-    res.raise_for_status() # does this exist?
+    res = table.put_item(Item=_prepare_dynamodb_dict(expense_dict), ReturnValues='ALL_NEW')
+    print(res)
     return res['ResponseMetadata']['HTTPStatusCode']
 
 # remove values that DynamoDB doesn't like
