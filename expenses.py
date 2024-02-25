@@ -30,6 +30,11 @@ def put_expense(expense: Expense) -> int:
     #body = json.loads(router.current_event['body'])
     print(expense_data)
     print(expense.dict(by_alias=True))
+    return {
+        'statusCode': 200,
+        'body': 'yay'
+    }
+    '''
     if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
         res = db_client.put_item(
             TableName="Expenses",
@@ -44,6 +49,7 @@ def put_expense(expense: Expense) -> int:
             'statusCode': 400,
             'body': json.dumps('amount, id, and name are all required fields')
         }
+    '''
 
 @router.delete("/expenses")
 def delete_expenses():
