@@ -15,14 +15,14 @@ def get_expenses():
     }
 
 @router.put("/expenses")
-def put_expenses():
-    body = json.loads(router.current_event['body'])
-    print(body)
-    print(type(body))
-    if (body and 'amount' in body and 'id' in body and 'name' in body):
+def put_expense():
+    expense_data: dict = router.current_event.body  # deserialize json str to dict
+    #body = json.loads(router.current_event['body'])
+    print(expense_data)
+    if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
         res = db_client.put_item(
             TableName="Expenses",
-            Item=body
+            Item=expense_data
         )
         return {
             'statusCode': res['ResponseMetadata']['HTTPStatusCode'],
