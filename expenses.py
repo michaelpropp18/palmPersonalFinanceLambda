@@ -11,10 +11,10 @@ router = Router()
 db_client = client.initiate_client()
 
 class Expense(BaseModel): 
-    #amount: float 
+    amount: float 
     id_: int = Field(alias="id", default=uuid4().int)
     name: str
-    datetime_: datetime = Field(alies="datetime", default=datetime.now(timezone.utc))
+    datetime_: datetime = Field(alias="datetime", default=datetime.now(timezone.utc))
 
 @router.get("/expenses")
 def get_expenses():
