@@ -29,7 +29,7 @@ def put_expense(expense: Expense) -> Expense:
     print(expense.dict(by_alias=True))
     res = db_client.put_item(
         TableName="Expenses",
-        Item=expense.json()
+        Item=expense.dict(by_alias=True)
     )
     print(res)
     return expense
