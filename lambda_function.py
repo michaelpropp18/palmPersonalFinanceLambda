@@ -7,7 +7,7 @@ from expenses import router as expenses_router
 from incomes import router as incomes_router
 
 
-app = APIGatewayRestResolver()
+app = APIGatewayRestResolver(enable_validation=True)
 
 app.include_router(health_router)
 app.include_router(expenses_router)

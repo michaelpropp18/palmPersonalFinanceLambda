@@ -1,11 +1,18 @@
 import json
 from aws_lambda_powertools.event_handler.api_gateway import Router
 from pydantic import BaseModel
+from uuid import uuid4
 
 import client
 
 router = Router()
 db_client = client.initiate_client()
+
+class Expense(BaseModel): 
+    amount: float, 
+    id_: Optional[int] = Field(alias="id", default=None)
+    title: str
+    completed: bool
 
 @router.get("/expenses")
 def get_expenses():
