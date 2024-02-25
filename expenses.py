@@ -22,6 +22,7 @@ def get_expenses() -> List[Expense]:
 
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
+    '''
     database.put_expense(expense)
     return {
         'statusCode': 200,
@@ -36,23 +37,6 @@ def put_expense(expense: Expense) -> Expense:
     )
     print(res)
     return expense
-    '''
-    '''
-    if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
-        res = db_client.put_item(
-            TableName="Expenses",
-            Item=expense_data
-        )
-        return {
-            'statusCode': res['ResponseMetadata']['HTTPStatusCode'],
-            'body': json.dumps(res)
-        }
-    else:
-        return {
-            'statusCode': 400,
-            'body': json.dumps('amount, id, and name are all required fields')
-        }
-    '''
 
 @router.delete("/expenses")
 def delete_expenses():
