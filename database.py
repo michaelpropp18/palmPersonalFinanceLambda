@@ -23,6 +23,7 @@ def put_expense(expense: Expense):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     expense_dict = expense.dict(by_alias=True)
     res = table.put_item(Item=_prepare_dynamodb_dict(expense_dict))
+    res.raise_for_status() # does this exist?
     return res['ResponseMetadata']['HTTPStatusCode']
 
 # remove values that DynamoDB doesn't like
