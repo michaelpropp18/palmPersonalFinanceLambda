@@ -21,11 +21,11 @@ def get_expenses() -> List[Expense]:
     return database.get_expenses()
 
 @router.post("/expenses")
-def put_expense(expense: Expense) -> Expense:
+def put_expense(expense: Expense):
     database.put_expense(expense)
     return {
         'statusCode': 200,
-        'body': expense
+        'body': 'yay'
     }
 
 @router.delete("/expenses")
