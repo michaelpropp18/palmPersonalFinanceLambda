@@ -26,7 +26,7 @@ def put_expense(expense: Expense):
     if (res == 200 or res == 201):
         return {
             'statusCode': 201,
-            'body': expense.id
+            'body': expense.id_
         }
     else:
         return {
