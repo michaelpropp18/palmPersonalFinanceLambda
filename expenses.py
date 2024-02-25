@@ -6,6 +6,7 @@ from uuid import uuid4
 from typing import List, Optional
 
 import client
+import database
 
 import boto3
 from boto3.dynamodb.conditions import Key
@@ -21,14 +22,7 @@ class Expense(BaseModel):
 
 @router.get("/expenses")
 def get_expenses() -> List[Expense]:
-    dynamodb = boto3.resource('dynamodb', region_name="us-east-1")
-    table = dynamodb.Table("Expenses")
-    res = table.scan()
-    print(res)
-    print(res['Items'])
-    items = res['Items']
-    print(items)
-    return items
+    return database.get_expenses()
 
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
