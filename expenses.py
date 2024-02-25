@@ -9,7 +9,7 @@ router = Router()
 db_client = client.initiate_client()
 
 class Expense(BaseModel): 
-    amount: float, 
+    amount: float
     id_: Optional[int] = Field(alias="id", default=None)
     title: str
     completed: bool
