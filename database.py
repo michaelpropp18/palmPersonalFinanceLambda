@@ -16,6 +16,16 @@ def get_expenses() -> List[Expense]:
     res = table.scan()
     return res['Items']
 
+def custom_serializer(my_dict):
+    for k,v in my_dict.items():
+        if isinstance(v, float):
+            my_dict[k] = Decimal(str(v))
+        if isinstance(v, datetime):
+            my_dict[k] = str(v)
+    serializer = boto3.dynamodb.types.TypeSerializer()
+    return {k: serializer.serialize(v) for k,v in expense_dict.items()}
+
+
 
 def put_expense(expense: Expense):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
@@ -24,7 +34,7 @@ def put_expense(expense: Expense):
     p1 = json.dumps(expense_dict, default=str)
     print(p1)
     serializer = boto3.dynamodb.types.TypeSerializer()
-    p2 = {k: serializer.serialize(v) for k,v in expense_dict.items()}
+    p2 = custom_serializer(expense_dict)
     print(p2)
     res = table.put_item(Item=p2)
     return res
