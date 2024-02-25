@@ -11,7 +11,7 @@ db_client = client.initiate_client()
 
 class Expense(BaseModel): 
     amount: float
-    id_: Optional[int] = Field(alias="id", default=None)
+    id_: int = Field(default=uuid4().int)
     title: str
     completed: bool
 
