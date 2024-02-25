@@ -22,7 +22,7 @@ def get_expenses() -> List[Expense]:
 
 @router.post("/expenses")
 def put_expense(expense: Expense):
-    database.put_expense(expense)
+    res = database.put_expense(expense)
     return {
         'statusCode': 200,
         'body': 'yay'
