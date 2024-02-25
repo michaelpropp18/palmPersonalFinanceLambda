@@ -25,7 +25,7 @@ def custom_serializer(my_dict):
         if isinstance(v, datetime):
             my_dict[k] = str(v)
     serializer = boto3.dynamodb.types.TypeSerializer()
-    return {k: serializer.serialize(v) for k,v in expense_dict.items()}
+    return {k: serializer.serialize(v) for k,v in my_dict.items()}
 
 
 
