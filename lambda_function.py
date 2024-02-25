@@ -6,6 +6,9 @@ from health import router as health_router
 from expenses import router as expenses_router
 from incomes import router as incomes_router
 
+import sys
+sys.path.append("..") # import modues like models
+
 
 app = APIGatewayRestResolver(enable_validation=True)
 
