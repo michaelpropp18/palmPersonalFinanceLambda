@@ -22,6 +22,12 @@ def get_expenses() -> List[Expense]:
 
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
+    database.put_expense(expense)
+    return {
+        'statusCode': 200,
+        'body': 'yay'
+    }
+    '''
     print(expense.dict(by_alias=True))
     print()
     res = db_client.put_item(
@@ -30,6 +36,7 @@ def put_expense(expense: Expense) -> Expense:
     )
     print(res)
     return expense
+    '''
     '''
     if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
         res = db_client.put_item(
