@@ -16,15 +16,9 @@ def get_expenses() -> List[Expense]:
 def put_expense(expense: Expense) -> str:
     res = database.put_expense(expense)
     if (res == 200 or res == 201):
-        return {
-            'statusCode': 201,
-            'body': expense.id_
-        }
+        return expense.id_
     else:
-        return {
-            'statusCode': res,
-            'body': 'Error'
-        }
+        return "error"
 
 @router.delete("/expenses")
 def delete_expenses():
