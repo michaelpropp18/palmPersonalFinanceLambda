@@ -20,25 +20,15 @@ class Expense(BaseModel):
     datetime_: datetime = Field(alias="datetime", default_factory=lambda: datetime.now(timezone.utc))
 
 @router.get("/expenses")
-def get_expenses():
+def get_expenses() -> List[Expense]:
     dynamodb = boto3.resource('dynamodb', region_name="us-east-1")
     table = dynamodb.Table("Expenses")
     res = table.scan()
     print(res)
     print(res['Items'])
-    item = res['Items'][0]
-    print(item)
-    return {
-        'statusCode': 200,
-        'body': 'yay'
-    }
-    '''
-    res = db_client.scan(TableName="Expenses")["Items"]
-    return {
-        'statusCode': 200,
-        'body': json.dumps(res)
-    }
-    '''
+    items = res['Items']
+    print(items)
+    return items
 
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
