@@ -32,10 +32,6 @@ def custom_serializer(my_dict):
 def put_expense(expense: Expense):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     expense_dict = expense.dict(by_alias=True)
-    print(expense_dict)
-    p1 = json.dumps(expense_dict, default=str)
-    print(p1)
-    serializer = boto3.dynamodb.types.TypeSerializer()
     p2 = custom_serializer(expense_dict)
     print(p2)
     res = table.put_item(Item=p2)
