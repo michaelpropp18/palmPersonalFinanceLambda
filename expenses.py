@@ -26,11 +26,8 @@ def get_expenses():
 
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
-    expense_data: dict = router.current_event.body  # deserialize json str to dict
-    #body = json.loads(router.current_event['body'])
-    print(expense_data)
     print(expense.dict(by_alias=True))
-    return expense_data.json()
+    return expense.json()
     '''
     if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
         res = db_client.put_item(
