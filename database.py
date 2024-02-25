@@ -18,6 +18,6 @@ def put_expense(expense: Expense):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     expense_dict = expense.dict(by_alias=True)
     print(expense_dict)
-    print(expense_dict.model_dump())
+    print(expense.model_dump())
     res = table.put_item(Item=expense_dict)
     return res
