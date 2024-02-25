@@ -11,10 +11,10 @@ router = Router()
 db_client = client.initiate_client()
 
 class Expense(BaseModel): 
-    #amount: float
-    #id_: int = Field(alias="id", default=uuid4().int)
+    #amount: float 
+    id_: int = Field(alias="id", default=uuid4().int)
     name: str
-    #datetime_: datetime = Field(alies="datetime", default=datetime.now(timezone.utc))
+    datetime_: datetime = Field(alies="datetime", default=datetime.now(timezone.utc))
 
 @router.get("/expenses")
 def get_expenses():
@@ -30,7 +30,7 @@ def put_expense(expense: Expense) -> str:
     #body = json.loads(router.current_event['body'])
     print(expense_data)
     print(expense.dict(by_alias=True))
-    return "1"
+    return expense_data.json()
     '''
     if (expense_data and 'amount' in expense_data and 'id' in expense_data and 'name' in expense_data):
         res = db_client.put_item(
