@@ -13,7 +13,18 @@ def get_expenses() -> List[Expense]:
     res = table.scan()
     return res['Items']
 
+def python_to_dynamo(python_object: dict) -> dict:
+    serializer = TypeSerializer()
+    return {
+        k: serializer.serialize(v)
+        for k, v in python_object.items()
+    }
+
 def put_expense(expense: Expense):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
-    res = table.put_item(Item=expense.dict(by_alias=True))
+    expense_dict = expense.dict(by_alias=True)
+    print(expense_dict)
+    dynamo_dict = python_to_dynamo(expense_dict)
+    print(dynamo_dict)
+    res = table.put_item(Item=dynamo_dict)
     return res
