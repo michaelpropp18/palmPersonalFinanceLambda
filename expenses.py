@@ -11,7 +11,7 @@ import database
 import boto3
 from boto3.dynamodb.conditions import Key
 
-import models.expense
+from models.expense import Expense
 
 router = Router()
 db_client = client.initiate_client()
