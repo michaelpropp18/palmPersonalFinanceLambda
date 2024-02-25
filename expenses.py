@@ -25,9 +25,12 @@ def get_expenses():
     table = dynamodb.Table("Expenses")
     res = table.scan()
     print(res)
+    print(res.items)
+    item = res.items[0]
+    print(item)
     return {
         'statusCode': 200,
-        'body': json.dumps(res)
+        'body': 'yay'
     }
     '''
     res = db_client.scan(TableName="Expenses")["Items"]
