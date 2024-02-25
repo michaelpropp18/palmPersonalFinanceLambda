@@ -23,7 +23,7 @@ def get_expenses() -> List[Expense]:
 @router.post("/expenses")
 def put_expense(expense: Expense):
     res = database.put_expense(expense)
-    if (res == 200 || res == 201):
+    if (res == 200 or res == 201):
         return {
             'statusCode': 201,
             'body': expense.id
