@@ -24,7 +24,7 @@ def put_expense(expense: Expense):
     p1 = json.dumps(expense_dict, default=str)
     print(p1)
     serializer = boto3.dynamodb.types.TypeSerializer()
-    p2 = {k: serializer.serialize(v) for k,v in p1.items()}
+    p2 = {k: serializer.serialize(v) for k,v in expense_dict.items()}
     print(p2)
     res = table.put_item(Item=p2)
     return res
