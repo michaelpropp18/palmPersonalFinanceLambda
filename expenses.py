@@ -18,7 +18,7 @@ def get_expenses() -> List[Expense]:
 def put_expense(expense: Expense) -> Expense:
     return database.put_expense(expense)
 
-@router.delete("/expenses<expense_id>")
+@router.delete("/expenses/<expense_id>")
 def delete_expenses(expense_id: Annotated[str, Path(lt=999)]):
     print(expense_id)
     database.delete_expense(expense_id)
