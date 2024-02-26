@@ -33,6 +33,16 @@ def post_expense(expense: Expense) -> Expense:
     if res['ResponseMetadata']['HTTPStatusCode'] == 200:
         return expense
 
+def put_expense(expense: Expense) -> Expense:
+    table = dynamodb.Table(EXPENSES_TABLE_NAME)
+    expense_dict = expense.dict(by_alias=True)
+    res = table.put_item(
+        Item=_prepare_dynamodb_dict(expense_dict),
+        ConditionExpression=Attr('id').equals(expense.id_),
+        ReturnValues='ALL_OLD'
+    )
+    print(res)
+
 def delete_expense(expense_id: str) -> Expense:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.delete_item(Key={'id': expense_id}, ReturnValues="ALL_OLD")
