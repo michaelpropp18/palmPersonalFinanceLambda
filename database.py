@@ -22,7 +22,8 @@ def get_expenses() -> List[Expense]:
 def get_expense(expense_id: str) -> Expense:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.get_item(Key={'id': expense_id})
-    return res['Item']
+    if 'Item' in res:
+        return res['Item']
 
 def post_expense(expense: Expense) -> Expense:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
