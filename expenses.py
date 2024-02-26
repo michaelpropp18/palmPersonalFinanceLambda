@@ -20,7 +20,7 @@ def get_expense(expense_id: str) -> Expense:
 def post_expense(expense: Expense) -> Expense:
     return database.post_expense(expense)
 
-@router.put("/expenses/<expense_id>")
+@router.put("/expenses")
 def put_expense(expense: Expense) -> Expense:
     return database.put_expense(expense)
 

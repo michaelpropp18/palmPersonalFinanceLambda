@@ -36,12 +36,18 @@ def post_expense(expense: Expense) -> Expense:
 def put_expense(expense: Expense) -> Expense:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     expense_dict = expense.dict(by_alias=True)
-    res = table.put_item(
-        Item=_prepare_dynamodb_dict(expense_dict),
-        ConditionExpression=Attr('id').eq(expense.id_),
-        ReturnValues='ALL_OLD'
-    )
+    try:
+        res = table.put_item(
+            Item=_prepare_dynamodb_dict(expense_dict),
+            ConditionExpression=Attr('id').eq(expense.id_),
+            ReturnValues='ALL_OLD'
+        )
+    except ConditionalCheckFailedException:
+        return
     print(res)
+    if res['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in res:
+        return res['Attributes']
+    
 
 def delete_expense(expense_id: str) -> Expense:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
