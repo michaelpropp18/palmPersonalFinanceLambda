@@ -2,6 +2,7 @@ import json
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
+from botocore.exceptions import ClientError
 
 from typing import List
 from datetime import datetime
@@ -42,7 +43,8 @@ def put_expense(expense: Expense) -> Expense:
             ConditionExpression=Attr('id').eq(expense.id_),
             ReturnValues='ALL_OLD'
         )
-    except ConditionalCheckFailedException:
+    except ClientError as e:
+        print(e)
         return
     print(res)
     if res['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in res:
