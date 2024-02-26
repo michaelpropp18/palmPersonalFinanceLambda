@@ -31,7 +31,7 @@ def delete_expense(expense_id: str) -> Expense:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.delete_item(Key={'id': expense_id}, ReturnValues="ALL_OLD")
     print(res)
-    if res['ResponseMetadata']['HTTPStatusCode'] == 200:
+    if res['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in res:
         return res['Attributes']
 
 # remove values that DynamoDB doesn't like
