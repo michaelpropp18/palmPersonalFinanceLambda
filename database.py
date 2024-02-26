@@ -19,7 +19,12 @@ def get_expenses() -> List[Expense]:
     res = table.scan()
     return res['Items']
 
-def put_expense(expense: Expense) -> Expense:
+def get_expense(expense_id: str) -> Expense:
+    table = dynamodb.Table(EXPENSES_TABLE_NAME)
+    res = table.get_item(Key={'id': expense_id})
+    return res['Item']
+
+def post_expense(expense: Expense) -> Expense:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     expense_dict = expense.dict(by_alias=True)
     res = table.put_item(Item=_prepare_dynamodb_dict(expense_dict))

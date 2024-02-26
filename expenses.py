@@ -12,10 +12,14 @@ router = Router()
 def get_expenses() -> List[Expense]:
     return database.get_expenses()
 
+@router.get("/expenses/<expense_id>")
+def get_expense(expense_id: str) -> Expense:
+    return database.get_expense(expense_id)
+
 @router.post("/expenses")
 def put_expense(expense: Expense) -> Expense:
-    return database.put_expense(expense)
+    return database.post_expense(expense)
 
 @router.delete("/expenses/<expense_id>")
-def delete_expenses(expense_id) -> Expense:
+def delete_expenses(expense_id: str) -> Expense:
     return database.delete_expense(expense_id)
