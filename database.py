@@ -29,7 +29,7 @@ def put_expense(expense: Expense) -> Expense:
 
 def delete_expense(expense_id: str):
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
-    res = table.delete_item(Key=expense_id, ReturnValues="ALL_OLD")
+    res = table.delete_item(Key={"id": expense_id}, ReturnValues="ALL_OLD")
     print(res)
 
 # remove values that DynamoDB doesn't like
