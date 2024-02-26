@@ -38,7 +38,7 @@ def put_expense(expense: Expense) -> Expense:
     expense_dict = expense.dict(by_alias=True)
     res = table.put_item(
         Item=_prepare_dynamodb_dict(expense_dict),
-        ConditionExpression=Attr('id').equals(expense.id_),
+        ConditionExpression=Attr('id').eq(expense.id_),
         ReturnValues='ALL_OLD'
     )
     print(res)
