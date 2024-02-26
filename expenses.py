@@ -20,5 +20,4 @@ def put_expense(expense: Expense) -> Expense:
 
 @router.delete("/expenses/<expense_id>")
 def delete_expenses(expense_id):
-    print(expense_id)
     database.delete_expense(expense_id)
