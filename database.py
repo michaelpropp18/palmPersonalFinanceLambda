@@ -9,8 +9,10 @@ from datetime import datetime
 from decimal import Decimal
 
 from models.expense import Expense
+from models.income import Income
 
 EXPENSES_TABLE_NAME = "Expenses"
+INCOMES_TABLE_NAME = "Incomes"
 REGION_NAME = "us-east-1"
 
 dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
@@ -57,6 +59,12 @@ def delete_expense(expense_id: str) -> Expense:
     print(res)
     if res['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in res:
         return res['Attributes']
+
+
+def get_incomes() -> List[Income]:
+    table = dynamodb.Table(Incomes_TABLE_NAME)
+    res = table.scan()
+    return res['Items']
 
 # remove values that DynamoDB doesn't like
 def _prepare_dynamodb_dict(d):
