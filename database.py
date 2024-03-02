@@ -62,7 +62,7 @@ def delete_expense(expense_id: str) -> Expense:
 
 
 def get_incomes() -> List[Income]:
-    table = dynamodb.Table(Incomes_TABLE_NAME)
+    table = dynamodb.Table(INCOMES_TABLE_NAME)
     res = table.scan()
     return res['Items']
 
