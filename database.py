@@ -58,7 +58,11 @@ def put_expense(expense: Expense) -> Expense:
     
 
 def delete_expense(expense_id: str) -> Expense:
-    return _delete_dynamodb_item(EXPENSES_TABLE_NAME, expense_id)
+    table = dynamodb.Table(EXPENSES_TABLE_NAME)
+    res = table.delete_item(Key={'id': expense_id}, ReturnValues="ALL_OLD")
+    print(res)
+    if res['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in res:
+        return res['Attributes']
 
 ##############################################################
 # Incomes
@@ -101,7 +105,11 @@ def put_income(income: Income) -> Income:
     
 
 def delete_income(income_id: str) -> Income:
-    return _delete_dynamodb_item(INCOMES_TABLE_NAME, income_id)
+    table = dynamodb.Table(INCOMES_TABLE_NAME)
+    res = table.delete_item(Key={'id': income_id}, ReturnValues="ALL_OLD")
+    print(res)
+    if res['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in res:
+        return res['Attributes']
 
 ##############################################################
 # Utilities
@@ -115,10 +123,3 @@ def _prepare_dynamodb_dict(d):
         if isinstance(v, datetime):
             d[k] = str(v)
     return d
-
-def _delete_dynamodb_item(table_name, item_id: str):
-    table = dynamodb.Table(table_name)
-    res = table.delete_item(Key={'id': item_id}, ReturnValues="ALL_OLD")
-    print(res)
-    if res['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in res:
-        return res['Attributes']
