@@ -1,4 +1,5 @@
 from aws_lambda_powertools.event_handler.api_gateway import Router
+from aws_lambda_powertools.utilities import parameters
 from typing import List
 
 import database
@@ -9,6 +10,8 @@ router = Router()
 
 @router.get("/expenses")
 def get_expenses() -> List[Expense]:
+    all_parameters: dict = parameters.get_parameters("/expenses")
+    print(all_parameters)
     return database.get_expenses()
 
 @router.get("/expenses/<expense_id>")
