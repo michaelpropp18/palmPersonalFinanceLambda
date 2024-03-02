@@ -9,4 +9,4 @@ router = Router()
 
 @router.get("/incomes")
 def get_incomes() -> List[Income]:
-    return database.get_expenses()
+    return database.get_incomes()
