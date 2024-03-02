@@ -85,7 +85,7 @@ def post_income(income: Income) -> Income:
     res = table.put_item(Item=_prepare_dynamodb_dict(income_dict))
     print(res)
     if res['ResponseMetadata']['HTTPStatusCode'] == 200:
-        return expense
+        return income
 
 def put_income(income: Income) -> Income:
     table = dynamodb.Table(INCOMES_TABLE_NAME)
