@@ -12,7 +12,7 @@ router = Router()
 def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = None) -> List[Expense]:
     print(start)
     print(end)
-    return database.get_expenses()
+    return database.get_expenses(start, end)
 
 @router.get("/expenses/<expense_id>")
 def get_expense(expense_id: str) -> Expense:
