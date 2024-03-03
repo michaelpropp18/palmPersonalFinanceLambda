@@ -4,7 +4,7 @@ from boto3.dynamodb.conditions import Key, Attr
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 from botocore.exceptions import ClientError
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 from decimal import Decimal
 
