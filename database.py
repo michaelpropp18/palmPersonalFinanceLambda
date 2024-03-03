@@ -22,6 +22,8 @@ dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
 ##############################################################
 
 def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = None) -> List[Expense]:
+    print(str(start))
+    print(Attr('datetime').gte(str(start)))
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.scan(
         Select='ALL_ATTRIBUTES',
