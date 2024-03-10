@@ -20,29 +20,18 @@ dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
 ##############################################################
 # Expenses
 ##############################################################
-
-def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[datetime] = None):
-    attrs = []
-    if start is not None:
-        attrs.append(Attr('datetime').gte(str(start)))
-    if end is not None:
-        attrs.append(Attr('datetime').lte(str(end)))
-    filter_expression = None
-    for a in attrs:
-        if filter_expression is None:
-            filter_expression = a
-        else:
-            filter_expression &= a
-    return filter_expression
     
-    
-
-def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = None) -> List[Expense]:
-    table = dynamodb.Table(EXPENSES_TABLE_NAME)
+def get_expenses(
+    start: Optional[datetime] = None, 
+    end: Optional[datetime] = None, 
+    limit: Optional[int] = None
+) -> List[Expense]:
     params = {}
     filter_expression = _filter_expression_builder(start, end)
     if filter_expression:
         params['FilterExpression'] = filter_expression
+    
+    table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.scan(**params)
     return res['Items']
 
@@ -143,3 +132,18 @@ def _prepare_dynamodb_dict(d):
         if isinstance(v, datetime):
             d[k] = str(v)
     return d
+
+# form a filter expression using args
+def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[datetime] = None):
+    attrs = []
+    if start is not None:
+        attrs.append(Attr('datetime').gte(str(start)))
+    if end is not None:
+        attrs.append(Attr('datetime').lte(str(end)))
+    filter_expression = None
+    for a in attrs:
+        if filter_expression is None:
+            filter_expression = a
+        else:
+            filter_expression &= a
+    return filter_expression
