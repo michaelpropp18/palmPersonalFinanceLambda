@@ -10,7 +10,7 @@ from models.expense import Expense
 router = Router()
 
 @router.get("/expenses")
-def get_expenses(stuff: Optional[str] = None) -> List[Expense]:
+def get_expenses(stuff: Annotated[Optional[str]] = None) -> List[Expense]:
     print(stuff)
     start = None
     end = None
