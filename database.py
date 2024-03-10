@@ -146,4 +146,5 @@ def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[d
             filter_expression = a
         else:
             filter_expression &= a
+    print(filter_expression)
     return filter_expression
