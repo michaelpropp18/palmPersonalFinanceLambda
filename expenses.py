@@ -1,5 +1,7 @@
 from aws_lambda_powertools.event_handler.api_gateway import Router
 from aws_lambda_powertools.shared.types import Annotated
+from aws_lambda_powertools.event_handler.openapi.params import Query  
+
 from typing import List, Optional
 from datetime import datetime
 
@@ -10,7 +12,7 @@ from models.expense import Expense
 router = Router()
 
 @router.get("/expenses")
-def get_expenses(stuff: Annotated[Optional[str]] = None) -> List[Expense]:
+def get_expenses(stuff: Annotated[Optional[str], Query(min_length=4)] = None) -> List[Expense]:
     print(stuff)
     start = None
     end = None
