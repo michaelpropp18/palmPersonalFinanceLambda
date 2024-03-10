@@ -1,4 +1,5 @@
 from aws_lambda_powertools.event_handler.api_gateway import Router
+from aws_lambda_powertools.shared.types import Annotated
 from typing import List, Optional
 from datetime import datetime
 
@@ -9,7 +10,7 @@ from models.expense import Expense
 router = Router()
 
 @router.get("/expenses")
-def get_expenses() -> List[Expense]:
+def get_expenses(start: Optional[datetime] = None) -> List[Expense]:
     start = None
     end = None
     return database.get_expenses(start, end)
