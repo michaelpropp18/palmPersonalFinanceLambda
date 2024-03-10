@@ -21,11 +21,27 @@ dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
 # Expenses
 ##############################################################
 
+def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[datetime] = None):
+    attrs = []
+    if start:
+        attrs.append(Attr('datetime').gte(str(start)))
+    if end:
+        attrs.append(Attr('datetime').lte(str(start)))
+    filter_expression = None
+    for a in attrs:
+        if filter_expression is None:
+            filter_expression = a
+        else:
+            filter_expression &= a
+    return filter_expression
+    
+    
+
 def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = None) -> List[Expense]:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.scan(
         Select='ALL_ATTRIBUTES',
-        FilterExpression=Attr('datetime').gte(str(start)) & Attr('datetime').lte(str(end))
+        FilterExpression=_filter_expression_builder(start, end)
     )
     return res['Items']
 
