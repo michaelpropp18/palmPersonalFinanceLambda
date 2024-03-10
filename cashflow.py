@@ -21,6 +21,7 @@ def get_expenses(
     incomes: List[Income] = database.get_incomes(start, end)
     cashflow = 0
     for e in expenses:
+        print(e)
         cashflow -= e.amount
     for i in incomes:
         cashflow += i.amount
