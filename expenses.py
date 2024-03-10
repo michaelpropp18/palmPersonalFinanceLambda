@@ -10,7 +10,7 @@ from models.expense import Expense
 router = Router()
 
 @router.get("/expenses")
-def get_expenses(start: Optional[str] = None) -> List[Expense]:
+def get_expenses(start: Optional[str] = 'oof') -> List[Expense]:
     start = None
     end = None
     return database.get_expenses(start, end)
