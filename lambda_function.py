@@ -14,10 +14,20 @@ app.include_router(expenses_router)
 app.include_router(incomes_router)
 
 def lambda_handler(event: dict, context: LambdaContext):
+    '''
+    This fixes a bug in aws-powertools where it expects at least one query string is provided
+    when parameters are present in the routing function header, even if these are all optional
+    
+    e.g. get_expenses has all optional query parameters, but will fail if the request has no
+    query parameters passed in as aws-powertools does a get() on None. 
+
+    Replacing None with {} allows the check to work properly.
+    '''
     if event['queryStringParameters'] is None:
         event['queryStringParameters'] = {}
     if event['multiValueQueryStringParameters'] is None:
         event['multiValueQueryStringParameters'] = {}
+
     print('Received event: ', event)
     print('Received context: ', context)
     return app.resolve(event, context)
