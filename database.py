@@ -42,11 +42,13 @@ def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = Non
     filter_expression = _filter_expression_builder(start, end)
     if filter_expression is None:
         res = table.scan(
+            Select='ALL_ATTRIBUTES'
+        )
+    else:
+        res = table.scan(
             Select='ALL_ATTRIBUTES',
             FilterExpression=_filter_expression_builder(start, end)
         )
-    else:
-         res = table.scan(Select='ALL_ATTRIBUTES')
     return res['Items']
 
 def get_expense(expense_id: str) -> Expense:
