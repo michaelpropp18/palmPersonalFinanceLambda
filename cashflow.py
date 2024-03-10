@@ -13,8 +13,8 @@ router = Router()
 @router.get("/cashflow")
 def get_expenses(
     start: Optional[datetime] = None, 
-    end: Optional[datetime] = None, 
-    limit: Annotated[Optional[int], Query(gt=0)] = None,
-    exclusive_start_id: Optional[str] = None
+    end: Optional[datetime] = None
 ) -> str:
+    expenses = database.get_expenses(start, end)
+    incomes = database.get_incomes(start, end)
     return "GOT HERE"
