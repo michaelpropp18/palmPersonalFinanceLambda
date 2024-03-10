@@ -15,9 +15,10 @@ router = Router()
 def get_expenses(
     start: Optional[datetime] = None, 
     end: Optional[datetime] = None, 
-    limit: Annotated[Optional[int], Query(gt=0)] = None
+    limit: Annotated[Optional[int], Query(gt=0)] = None,
+    exclusive_start_id: Optional[str] = None
 ) -> List[Expense]:
-    return database.get_expenses(start, end, limit)
+    return database.get_expenses(start, end, limit, exclusive_start_id)
 
 @router.get("/expenses/<expense_id>")
 def get_expense(expense_id: str) -> Expense:

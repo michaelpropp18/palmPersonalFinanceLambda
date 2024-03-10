@@ -24,7 +24,8 @@ dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
 def get_expenses(
     start: Optional[datetime] = None, 
     end: Optional[datetime] = None, 
-    limit: Optional[int] = None
+    limit: Optional[int] = None,
+    exclusive_start_id: Optional[str] = None
 ) -> List[Expense]:
     params = {}
     filter_expression = _filter_expression_builder(start, end)
@@ -32,6 +33,8 @@ def get_expenses(
         params['FilterExpression'] = filter_expression
     if limit:
         params['Limit'] = limit
+    if exclusive_start_id:
+        params['ExclusiveStartKey'] = exclusive_start_id
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.scan(**params)
     return res['Items']
