@@ -83,9 +83,24 @@ def delete_expense(expense_id: str) -> Expense:
 # Incomes
 ##############################################################
 
-def get_incomes() -> List[Income]:
+def get_incomes(
+    start: Optional[datetime] = None, 
+    end: Optional[datetime] = None, 
+    limit: Optional[int] = None,
+    exclusive_start_id: Optional[str] = None
+) -> List[Income]:
+    params = {}
+    filter_expression = _filter_expression_builder(start, end)
+    if filter_expression:
+        params['FilterExpression'] = filter_expression
+    if limit:
+        params['Limit'] = limit
+    if exclusive_start_id:
+        params['ExclusiveStartKey'] = {
+            'id': exclusive_start_id
+        }
     table = dynamodb.Table(INCOMES_TABLE_NAME)
-    res = table.scan()
+    res = table.scan(**params)
     return res['Items']
 
 def get_income(income_id: str) -> Income:
@@ -152,5 +167,4 @@ def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[d
             filter_expression = a
         else:
             filter_expression &= a
-    print(filter_expression)
     return filter_expression
