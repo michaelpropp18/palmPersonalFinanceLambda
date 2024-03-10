@@ -39,11 +39,12 @@ def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[d
 
 def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = None) -> List[Expense]:
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
+    params = {}
     filter_expression = _filter_expression_builder(start, end)
-    res = table.scan(
-            Select='ALL_ATTRIBUTES',
-            FilterExpression=_filter_expression_builder(start, end)
-        )
+    if filter_expression:
+        params['FilterExpression'] = filter_expression
+        params['Select'] = 'ALL_ATTRIBUTES'
+    res = table.scan(**params)
     return res['Items']
 
 def get_expense(expense_id: str) -> Expense:
