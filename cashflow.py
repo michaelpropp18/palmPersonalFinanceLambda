@@ -6,6 +6,8 @@ from typing import List, Optional
 from datetime import datetime
 
 import database
+from models.expense import Expense
+from models.income import Income
 
 
 router = Router()
@@ -15,6 +17,11 @@ def get_expenses(
     start: Optional[datetime] = None, 
     end: Optional[datetime] = None
 ) -> str:
-    expenses = database.get_expenses(start, end)
-    incomes = database.get_incomes(start, end)
-    return "GOT HERE"
+    expenses: List[Expense] = database.get_expenses(start, end)
+    incomes: List[Income] = database.get_incomes(start, end)
+    cashflow = 0
+    for e in expenses:
+        cashflow -= e.amount
+    for i in incomes:
+        cashflow += i.amount
+    return cashflow
