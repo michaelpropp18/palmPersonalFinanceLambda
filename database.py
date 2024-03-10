@@ -38,6 +38,11 @@ def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[d
     
 
 def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = None) -> List[Expense]:
+    print('here')
+    print(start)
+    print(start is None)
+    print(end)
+    print(end is None)
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     filter_expression = _filter_expression_builder(start, end)
     if filter_expression is None:

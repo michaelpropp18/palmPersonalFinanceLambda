@@ -9,9 +9,9 @@ from models.expense import Expense
 router = Router()
 
 @router.get("/expenses")
-def get_expenses(start: Optional[datetime] = None, end: Optional[datetime] = None) -> List[Expense]:
-    print(start)
-    print(end)
+def get_expenses() -> List[Expense]:
+    start = None
+    end = None
     return database.get_expenses(start, end)
 
 @router.get("/expenses/<expense_id>")
