@@ -23,10 +23,10 @@ dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
 
 def _filter_expression_builder(start: Optional[datetime] = None, end: Optional[datetime] = None):
     attrs = []
-    if start:
+    if start is not None:
         attrs.append(Attr('datetime').gte(str(start)))
-    if end:
-        attrs.append(Attr('datetime').lte(str(start)))
+    if end is not None:
+        attrs.append(Attr('datetime').lte(str(end)))
     filter_expression = None
     for a in attrs:
         if filter_expression is None:
