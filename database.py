@@ -30,7 +30,11 @@ def get_expenses(
     filter_expression = _filter_expression_builder(start, end)
     if filter_expression:
         params['FilterExpression'] = filter_expression
-    
+    if limit:
+        params['PaginationConfig'] = {
+            'MaxItems': limit,
+            'PageSize': limit
+        }
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.scan(**params)
     return res['Items']
