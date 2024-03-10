@@ -16,13 +16,11 @@ router = Router()
 def get_cashflow(
     start: Optional[datetime] = None, 
     end: Optional[datetime] = None
-) -> str:
+) -> float:
     expenses: List[Expense] = database.get_expenses(start, end)
     incomes: List[Income] = database.get_incomes(start, end)
     cashflow = 0
     for e in expenses:
-        print(e)
-        print(type(e))
         cashflow -= e['amount']
     for i in incomes:
         cashflow += i['amount']
