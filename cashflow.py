@@ -13,7 +13,7 @@ from models.income import Income
 router = Router()
 
 @router.get("/cashflow")
-def get_expenses(
+def get_cashflow(
     start: Optional[datetime] = None, 
     end: Optional[datetime] = None
 ) -> str:
@@ -22,7 +22,8 @@ def get_expenses(
     cashflow = 0
     for e in expenses:
         print(e)
-        cashflow -= e.amount
+        print(type(e))
+        cashflow -= e['amount']
     for i in incomes:
-        cashflow += i.amount
+        cashflow += i['amount']
     return cashflow
