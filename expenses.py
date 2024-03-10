@@ -10,8 +10,8 @@ from models.expense import Expense
 router = Router()
 
 @router.get("/expenses")
-def get_expenses(start: Optional[str] = 'oof') -> List[Expense]:
-    start = None
+def get_expenses() -> List[Expense]:
+    start: Optional[str] = app.current_event.query_string_parameters.get("start")
     end = None
     return database.get_expenses(start, end)
 
