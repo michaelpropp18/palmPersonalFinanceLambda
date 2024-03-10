@@ -5,6 +5,7 @@ from aws_lambda_powertools.utilities.typing import LambdaContext
 from health import router as health_router
 from expenses import router as expenses_router
 from incomes import router as incomes_router
+from cashflow import router as cashflow_router
 
 
 app = APIGatewayRestResolver(enable_validation=True)
@@ -12,6 +13,7 @@ app = APIGatewayRestResolver(enable_validation=True)
 app.include_router(health_router)
 app.include_router(expenses_router)
 app.include_router(incomes_router)
+app.include_router(cashflow_router)
 
 def lambda_handler(event: dict, context: LambdaContext):
     '''

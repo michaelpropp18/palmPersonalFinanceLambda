@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - cash_flow
 
 jobs:
   deploy_lambda:
