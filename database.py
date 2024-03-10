@@ -37,6 +37,7 @@ def get_expenses(
         params['ExclusiveStartKey'] = exclusive_start_id
     table = dynamodb.Table(EXPENSES_TABLE_NAME)
     res = table.scan(**params)
+    print(res)
     return res['Items']
 
 def get_expense(expense_id: str) -> Expense:
