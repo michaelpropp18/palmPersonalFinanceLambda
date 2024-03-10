@@ -14,6 +14,10 @@ app.include_router(expenses_router)
 app.include_router(incomes_router)
 
 def lambda_handler(event: dict, context: LambdaContext):
+    if context['queryStringParameters'] is None:
+        context['queryStringParameters'] = {}
+    if context['multiValueQueryStringParameters'] is None:
+        context['multiValueQueryStringParameters'] = {}
     print('Received event: ', event)
     print('Received context: ', context)
     return app.resolve(event, context)
