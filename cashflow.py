@@ -14,7 +14,7 @@ router = Router()
 def get_cashflow_summary(
     start: Optional[datetime] = None, 
     end: Optional[datetime] = None
-) -> float:
+) -> dict:
     incomes: List[Income] = database.get_incomes(start, end)
     expenses: List[Expense] = database.get_expenses(start, end)
 
